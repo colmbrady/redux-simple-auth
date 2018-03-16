@@ -3,9 +3,9 @@ import { Authenticator } from './types'
 
 interface options {
   name: string
-  restore: () => Promise<any>
-  authenticate: () => Promise<any>
-  invalidate: (data: any) => Promise<any>
+  restore?: () => Promise<any>
+  authenticate?: () => Promise<any>
+  invalidate?: (data: any) => Promise<any>
 }
 
 export default ({
