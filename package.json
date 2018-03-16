@@ -12,7 +12,7 @@
     "husky": "^0.14.3",
     "lerna": "2.9.0",
     "precise-commits": "^1.0.2",
-    "prettier": "1.10.2"
+    "prettier": "1.11.1"
   },
   "scripts": {
     "build": "lerna run build",
