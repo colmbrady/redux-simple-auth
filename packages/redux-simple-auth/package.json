@@ -12,7 +12,8 @@
     "build:commonjs:watch": "yarn run build:commonjs --watch",
     "build": "yarn run build:commonjs",
     "build:watch": "yarn run build:commonjs:watch",
-    "prepublish": "yarn run clean && yarn run lint && yarn run test && yarn run build"
+    "prepublish": "yarn run clean && yarn run lint && yarn run test && yarn run build",
+    "type-check": "tsc"
   },
   "files": [
     "lib",
