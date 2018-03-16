@@ -1,6 +1,6 @@
 export type Authenticator = {
   name: string
-  restore: Promise<any>
-  authenticate: Promise<any>
-  invalidate: Promise<any>
+  restore: (data: any) => Promise<any>
+  authenticate: (data: any) => Promise<any>
+  invalidate: (data: any) => Promise<any>
 }
