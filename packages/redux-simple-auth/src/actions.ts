@@ -12,25 +12,29 @@ import {
   RESTORE_FAILED,
   SYNC_TAB
 } from './actionTypes'
+import { Authenticator } from './types'
 
-export const authenticate = (authenticator, payload) => ({
+export const authenticate = (authenticator: Authenticator, payload: any) => ({
   type: AUTHENTICATE,
   meta: { authenticator },
   payload
 })
 
-export const authenticateSucceeded = (authenticator, payload) => ({
+export const authenticateSucceeded = (
+  authenticator: Authenticator,
+  payload: any
+) => ({
   type: AUTHENTICATE_SUCCEEDED,
   meta: { authenticator },
   payload
 })
 
-export const authenticateFailed = payload => ({
+export const authenticateFailed = (payload: any) => ({
   type: AUTHENTICATE_FAILED,
   payload
 })
 
-export const fetch = (url, options) => ({
+export const fetch = (url: string, options: any) => ({
   type: FETCH,
   payload: { url, options }
 })
@@ -47,12 +51,12 @@ export const invalidateSessionFailed = () => ({
   type: INVALIDATE_SESSION_FAILED
 })
 
-export const updateSession = payload => ({
+export const updateSession = (payload: any) => ({
   type: UPDATE_SESSION,
   payload
 })
 
-export const restore = payload => ({
+export const restore = (payload: any) => ({
   type: RESTORE,
   payload
 })
@@ -61,12 +65,12 @@ export const restoreFailed = () => ({
   type: RESTORE_FAILED
 })
 
-export const initialize = payload => ({
+export const initialize = (payload: any) => ({
   type: INITIALIZE,
   payload
 })
 
-export const syncTab = payload => ({
+export const syncTab = (payload: any) => ({
   type: SYNC_TAB,
   payload
 })
