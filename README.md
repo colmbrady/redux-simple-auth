@@ -647,9 +647,13 @@ const authMiddleware = createAuthMiddleware({
 
 * `data` (_object_): The session data
 
-* `block` (_function_): A callback function responsible for defining any headers
-  needed for authorization. It accepts a header name for its first argument and
-  that header's value as its second argument.
+* `block` (_function_): A callback function responsible for applying either 
+headers or options to the browser `fetch` function. The callback expects three arguments:
+  * name: a string as the name of the header or option.
+  * value: a string as the value of the header or option.
+  * type (optional): either `header` or `option` (or none). `header` applies 
+name/value pair as a fetch header. `option` applies name/value pair as a 
+fetch option. When no argument supplied, defaults to `header`.
 
 ### Store Enhancer
 

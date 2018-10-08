@@ -136,8 +136,12 @@ export default (config = {}) => {
           const { headers = {} } = options
 
           if (authorize) {
-            authorize(getSessionData(state), (name, value) => {
-              headers[name] = value
+            authorize(getSessionData(state), (name, value, type) => {
+              if (!type || type === 'header') {
+                headers[name] = value
+              } else if (type === 'option') {
+                options[name] = value
+              }
             })
           }
 

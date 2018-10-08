@@ -425,6 +425,49 @@ describe('FETCH dispatched', () => {
     })
   })
 
+  it('sets headers defined in authorize function when header type supplied', () => {
+    fetch.mockResponse(JSON.stringify({ ok: true }))
+    const middleware = createAuthMiddleware({
+      storage,
+      authorize: (data, block) => {
+        block('Authorization', data.token, 'header')
+      },
+      authenticator: testAuthenticator
+    })
+    const store = createStore({
+      middleware,
+      initialState: sessionState({ data: { token: '1235' } })
+    })
+
+    store.dispatch(fetchAction('https://test.com'))
+
+    expect(fetch).toHaveBeenCalledWith('https://test.com', {
+      headers: { Authorization: '1235' }
+    })
+  })
+
+  it('sets options defined in authorize function when option type supplied', () => {
+    fetch.mockResponse(JSON.stringify({ ok: true }))
+    const middleware = createAuthMiddleware({
+      storage,
+      authorize: (data, block) => {
+        block('credentials', 'same-origin', 'option')
+      },
+      authenticator: testAuthenticator
+    })
+    const store = createStore({
+      middleware,
+      initialState: sessionState({ data: { authenticated: true } })
+    })
+
+    store.dispatch(fetchAction('https://test.com'))
+
+    expect(fetch).toHaveBeenCalledWith('https://test.com', {
+      headers: {},
+      credentials: 'same-origin'
+    })
+  })
+
   describe('when refresh option is set', () => {
     it('dispatches update session action', async () => {
       fetch.mockResponse(JSON.stringify({ ok: true }), {
