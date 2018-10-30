@@ -401,7 +401,7 @@ describe('FETCH dispatched', () => {
 
     store.dispatch(fetchAction('https://test.com'))
 
-    expect(authorize).toHaveBeenCalledWith(data, expect.any(Function))
+    expect(authorize).toHaveBeenCalledWith(data, expect.any(Function), 'https://test.com')
   })
 
   it('sets headers defined in authorize function', () => {
