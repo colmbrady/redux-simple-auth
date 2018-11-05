@@ -651,6 +651,8 @@ const authMiddleware = createAuthMiddleware({
   needed for authorization. It accepts a header name for its first argument and
   that header's value as its second argument.
 
+* `url` (_string_): The target url for the fetch
+
 ### Store Enhancer
 
 There may be cases where you may want the redux store initialized with the

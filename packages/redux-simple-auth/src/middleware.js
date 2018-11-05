@@ -138,7 +138,7 @@ export default (config = {}) => {
           if (authorize) {
             authorize(getSessionData(state), (name, value) => {
               headers[name] = value
-            })
+            }, url)
           }
 
           return fetch(url, { ...options, headers }).then(response => {
