@@ -655,6 +655,8 @@ headers or options to the browser `fetch` function. The callback expects three a
 name/value pair as a fetch header. `option` applies name/value pair as a 
 fetch option. When no argument supplied, defaults to `header`.
 
+* `url` (_string_): The target url for the fetch
+
 ### Store Enhancer
 
 There may be cases where you may want the redux store initialized with the

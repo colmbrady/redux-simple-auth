@@ -142,7 +142,7 @@ export default (config = {}) => {
               } else if (type === 'option') {
                 options[name] = value
               }
-            })
+            }, url)
           }
 
           return fetch(url, { ...options, headers }).then(response => {
