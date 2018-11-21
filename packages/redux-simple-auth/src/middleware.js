@@ -137,8 +137,10 @@ export default (config = {}) => {
 
           if (authorize) {
             authorize(getSessionData(state), (name, value) => {
-              headers[name] = value
-            })
+                headers[name] = value
+              }, (name, value) => {
+                options[name] = value
+              }, url)
           }
 
           return fetch(url, { ...options, headers }).then(response => {

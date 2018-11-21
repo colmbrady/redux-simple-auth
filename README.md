@@ -632,9 +632,17 @@ arguments: the session data, and a callback function.
 
 ```javascript
 
-const bearerAuthorizer = (data, block) => {
+const bearerAuthorizer = (data, headers, options, url) => {
   if (data.token) {
-    block('Authorization', `Bearer ${data.token}`)
+    headers('Authorization', `Bearer ${data.token}`)
+  }
+  // Or perhaps ...
+  if (data.usingCookieAuth) {
+    options('credentials', `same-origin`)
+  }
+  // Or perhaps ...
+  if (data.url !== '/my-unprotected-api') {
+    headers('Authorization', `Bearer ${data.token}`)
   }
 }
 
@@ -647,9 +655,15 @@ const authMiddleware = createAuthMiddleware({
 
 * `data` (_object_): The session data
 
-* `block` (_function_): A callback function responsible for defining any headers
+* `headers` (_function_): A callback function responsible for defining any headers
   needed for authorization. It accepts a header name for its first argument and
   that header's value as its second argument.
+
+* `options` (_function_): A callback function responsible for defining any fetch options
+  needed for authorization. It accepts a option name for its first argument and
+  that option's value as its second argument.
+
+* `url` (_string_): The target url for the fetch.
 
 ### Store Enhancer
 

@@ -401,15 +401,15 @@ describe('FETCH dispatched', () => {
 
     store.dispatch(fetchAction('https://test.com'))
 
-    expect(authorize).toHaveBeenCalledWith(data, expect.any(Function))
+    expect(authorize).toHaveBeenCalledWith(data, expect.any(Function), expect.any(Function), 'https://test.com')
   })
 
   it('sets headers defined in authorize function', () => {
     fetch.mockResponse(JSON.stringify({ ok: true }))
     const middleware = createAuthMiddleware({
       storage,
-      authorize: (data, block) => {
-        block('Authorization', data.token)
+      authorize: (data, headers) => {
+        headers('Authorization', data.token)
       },
       authenticator: testAuthenticator
     })
@@ -422,6 +422,28 @@ describe('FETCH dispatched', () => {
 
     expect(fetch).toHaveBeenCalledWith('https://test.com', {
       headers: { Authorization: '1235' }
+    })
+  })
+
+  it('sets options defined in authorize function', () => {
+    fetch.mockResponse(JSON.stringify({ ok: true }))
+    const middleware = createAuthMiddleware({
+      storage,
+      authorize: (data, headers, options) => {
+        options('credentials', 'same-origin')
+      },
+      authenticator: testAuthenticator
+    })
+    const store = createStore({
+      middleware,
+      initialState: sessionState({ data: { token: '1235' } })
+    })
+
+    store.dispatch(fetchAction('https://test.com'))
+
+    expect(fetch).toHaveBeenCalledWith('https://test.com', {
+      credentials: 'same-origin',
+      headers: {}
     })
   })
 
